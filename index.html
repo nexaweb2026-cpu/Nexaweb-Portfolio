@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NexaWeb Solutions – Premium Web Development Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+/* ===== RESET ===== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#030712;--bg2:#0a1128;--bg3:#111d3a;
+  --accent:#00e5ff;--accent2:#6366f1;--accent3:#a855f7;
+  --accent-glow:rgba(0,229,255,.12);
+  --gradient:linear-gradient(135deg,#00e5ff,#6366f1,#a855f7);
+  --gradient2:linear-gradient(135deg,#6366f1,#00e5ff);
+  --text:#edf2ff;--text-muted:#64748b;--text-dim:#475569;
+  --border:rgba(255,255,255,.06);--card:rgba(255,255,255,.03);
+  --glass:rgba(255,255,255,.04);--glass-border:rgba(255,255,255,.08);
+  --font-d:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+  --radius:20px;--tr:.4s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--accent2) var(--bg)}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:16px;line-height:1.7;overflow-x:hidden}
+::selection{background:var(--accent);color:#000}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--accent2),var(--accent));border-radius:2px}
+
+/* ===== PRELOADER ===== */
+.preloader{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;transition:opacity .6s,visibility .6s}
+.preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.preloader-logo{font-family:var(--font-d);font-size:2rem;font-weight:800;letter-spacing:-1px}
+.preloader-logo span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.preloader-bar{width:200px;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
+.preloader-fill{width:0;height:100%;background:var(--gradient);border-radius:2px;animation:load 1.8s ease forwards}
+@keyframes load{to{width:100%}}
+
+/* ===== CURSOR ===== */
+.cursor-dot{position:fixed;top:0;left:0;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:99998;transition:transform .15s,opacity .15s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;top:0;left:0;width:40px;height:40px;border:1.5px solid rgba(0,229,255,.4);border-radius:50%;pointer-events:none;z-index:99997;transition:transform .08s,width .3s,height .3s,border-color .3s}
+.cursor-ring.hover{width:60px;height:60px;border-color:var(--accent)}
+
+/* ===== SCROLL PROGRESS ===== */
+.scroll-progress{position:fixed;top:0;left:0;width:0;height:2px;background:var(--gradient);z-index:10001;transition:none}
+
+/* ===== NOISE ===== */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.5}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:20px 5%;transition:all var(--tr)}
+nav.scrolled{background:rgba(3,7,18,.85);backdrop-filter:blur(24px) saturate(1.4);padding:14px 5%;border-bottom:1px solid var(--glass-border)}
+.nav-logo{font-family:var(--font-d);font-weight:800;font-size:1.4rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px;letter-spacing:-.5px}
+.nav-logo-mark{width:34px;height:34px;background:var(--gradient);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.nav-logo-mark::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.3) 50%,transparent 60%);animation:shine 3s infinite}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.nav-logo-mark svg{width:16px;height:16px;fill:#fff;position:relative;z-index:1}
+.nav-logo em{font-style:normal;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:8px;list-style:none;align-items:center}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.85rem;font-weight:500;padding:8px 16px;border-radius:100px;transition:all var(--tr);position:relative}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.nav-cta{background:rgba(99,102,241,.15)!important;border:1px solid rgba(99,102,241,.3)!important;color:var(--accent)!important;font-weight:600!important;backdrop-filter:blur(8px)}
+.nav-cta:hover{background:var(--accent)!important;color:#000!important;border-color:var(--accent)!important;box-shadow:0 0 30px rgba(0,229,255,.3)!important}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;border-radius:8px;transition:background var(--tr)}
+.hamburger:hover{background:rgba(255,255,255,.05)}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text);margin:5px 0;border-radius:2px;transition:var(--tr)}
+
+/* ===== MOBILE NAV ===== */
+.mobile-nav{position:fixed;inset:0;background:rgba(3,7,18,.98);backdrop-filter:blur(30px);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transform:translateY(-100%);transition:transform .5s cubic-bezier(.77,0,.18,1)}
+.mobile-nav.open{transform:translateY(0)}
+.mobile-nav a{font-family:var(--font-d);font-size:2.2rem;font-weight:700;color:var(--text);text-decoration:none;opacity:.6;transition:all var(--tr);padding:8px 20px;border-radius:12px}
+.mobile-nav a:hover{opacity:1;background:rgba(255,255,255,.05)}
+.mobile-close{position:absolute;top:20px;right:5%;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all var(--tr)}
+.mobile-close:hover{background:rgba(255,255,255,.1);border-color:var(--accent)}
+
+/* ===== CONTAINERS ===== */
+.container{max-width:1240px;margin:0 auto;padding:0 5%}
+.section{padding:120px 0;position:relative}
+.section-header{margin-bottom:64px}
+.section-label{display:inline-flex;align-items:center;gap:10px;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;padding:6px 16px 6px 6px;border-radius:100px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.15)}
+.section-label-dot{width:20px;height:20px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.5rem}
+.section-label span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-title{font-family:var(--font-d);font-size:clamp(2rem,4.2vw,3.2rem);font-weight:800;line-height:1.12;letter-spacing:-.5px;margin-bottom:18px}
+.section-title em{font-style:normal;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative}
+.section-title em::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--gradient);border-radius:2px;opacity:.4}
+.section-sub{color:var(--text-muted);font-size:1.05rem;max-width:540px;line-height:1.8}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:100px;font-family:var(--font-b);font-size:.9rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:all var(--tr);letter-spacing:.2px;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,.15) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s}
+.btn:hover::before{transform:translateX(100%)}
+.btn-primary{background:var(--gradient);color:#000;box-shadow:0 4px 20px rgba(0,229,255,.15)}
+.btn-primary:hover{box-shadow:0 8px 40px rgba(0,229,255,.35);transform:translateY(-3px)}
+.btn-outline{background:var(--glass);color:var(--text);border:1px solid var(--glass-border);backdrop-filter:blur(8px)}
+.btn-outline:hover{border-color:rgba(0,229,255,.3);color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.btn-sm{padding:10px 22px;font-size:.82rem}
+.btn-icon{width:18px;height:18px;transition:transform var(--tr)}
+.btn:hover .btn-icon{transform:translateX(3px)}
+
+/* ===== HERO ===== */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:100px}
+.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.04) 1px,transparent 1px);background-size:70px 70px;mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black 20%,transparent 100%)}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbFloat 8s ease-in-out infinite}
+.hero-orb-1{width:600px;height:600px;background:rgba(99,102,241,.12);top:-15%;left:30%;animation-delay:0s}
+.hero-orb-2{width:400px;height:400px;background:rgba(0,229,255,.08);bottom:5%;right:5%;animation-delay:2s}
+.hero-orb-3{width:300px;height:300px;background:rgba(168,85,247,.08);top:40%;right:20%;animation-delay:4s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0)}33%{transform:translate(20px,-20px)}66%{transform:translate(-15px,15px)}}
+.hero-particles{position:absolute;inset:0;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:rgba(99,102,241,.4);border-radius:50%;animation:particleUp linear infinite}
+@keyframes particleUp{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+.hero-content{position:relative;z-index:2;max-width:800px}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-border);padding:8px 20px 8px 10px;border-radius:100px;font-size:.8rem;font-weight:500;color:var(--text-muted);margin-bottom:36px;animation:fadeUp .8s both}
+.hero-badge-status{display:flex;align-items:center;gap:6px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);padding:4px 12px;border-radius:100px;font-size:.72rem;font-weight:600;color:#22c55e}
+.hero-badge-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite;box-shadow:0 0 8px rgba(34,197,94,.5)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.hero-title{font-family:var(--font-d);font-size:clamp(3rem,7.5vw,6rem);font-weight:800;line-height:1.02;letter-spacing:-3px;margin-bottom:28px}
+.hero-title .line{display:block;animation:fadeUp .8s both}
+.hero-title .line:nth-child(1){animation-delay:.1s}
+.hero-title .line:nth-child(2){animation-delay:.2s}
+.hero-title .accent-line{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative}
+.hero-title .accent-line::after{content:'';position:absolute;bottom:4px;left:0;width:100%;height:6px;background:var(--gradient);opacity:.15;border-radius:3px}
+.hero-sub{font-size:1.15rem;color:var(--text-muted);max-width:540px;margin-bottom:44px;line-height:1.8;animation:fadeUp .8s .3s both}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .8s .4s both}
+.hero-stats{display:flex;gap:0;margin-top:80px;padding:0;animation:fadeUp .8s .5s both;background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden}
+.hero-stat{flex:1;padding:28px 32px;text-align:center;border-right:1px solid var(--border);transition:background var(--tr)}
+.hero-stat:last-child{border-right:none}
+.hero-stat:hover{background:rgba(255,255,255,.03)}
+.stat-number{font-family:var(--font-d);font-size:2.2rem;font-weight:800;letter-spacing:-1px;line-height:1}
+.stat-number span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-text{font-size:.78rem;color:var(--text-muted);margin-top:6px;letter-spacing:.5px}
+
+/* ===== MARQUEE ===== */
+.marquee-section{padding:32px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:var(--bg2)}
+.marquee-track{display:flex;gap:48px;animation:marquee 30s linear infinite;white-space:nowrap}
+.marquee-item{display:flex;align-items:center;gap:12px;font-family:var(--font-d);font-size:.9rem;font-weight:600;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;flex-shrink:0}
+.marquee-item .dot{width:6px;height:6px;background:var(--accent2);border-radius:50%}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ===== ABOUT ===== */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-visual{position:relative}
+.about-card{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:44px;position:relative;overflow:hidden}
+.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--gradient)}
+.about-card::after{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(ellipse,rgba(99,102,241,.06),transparent 70%);pointer-events:none}
+.about-avatar{width:80px;height:80px;background:var(--gradient);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:24px;position:relative;box-shadow:0 8px 32px rgba(99,102,241,.2)}
+.about-avatar::after{content:'';position:absolute;inset:-3px;border-radius:25px;background:var(--gradient);z-index:-1;opacity:.3;filter:blur(8px)}
+.about-name{font-family:var(--font-d);font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.about-role{font-size:.85rem;font-weight:600;margin-bottom:18px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.about-bio{color:var(--text-muted);font-size:.9rem;line-height:1.8}
+.skills-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.skill-pill{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.15);padding:6px 16px;border-radius:100px;font-size:.75rem;font-weight:600;transition:all var(--tr)}
+.skill-pill:hover{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.3);transform:translateY(-2px)}
+.skill-pill span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.about-floating{position:absolute;bottom:-20px;right:-20px;background:var(--gradient);color:#000;border-radius:16px;padding:20px 24px;font-size:.82rem;font-weight:700;box-shadow:0 12px 40px rgba(99,102,241,.35);line-height:1.3;z-index:2}
+.about-floating big{display:block;font-size:1.8rem;font-family:var(--font-d);font-weight:800}
+.about-text p{color:var(--text-muted);margin-bottom:20px;line-height:1.85;font-size:.95rem}
+
+/* ===== SERVICES ===== */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.service-card{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:40px 32px;transition:all var(--tr);position:relative;overflow:hidden;cursor:default;group:true}
+.service-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(99,102,241,.08) 0%,transparent 50%);opacity:0;transition:opacity var(--tr)}
+.service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--gradient);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.service-card:hover{border-color:rgba(99,102,241,.2);transform:translateY(-6px);box-shadow:0 24px 64px rgba(0,0,0,.3)}
+.service-card:hover::before{opacity:1}
+.service-card:hover::after{transform:scaleX(1)}
+.service-icon-wrap{width:56px;height:56px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.15);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:24px;transition:all var(--tr)}
+.service-card:hover .service-icon-wrap{background:var(--gradient);box-shadow:0 8px 24px rgba(99,102,241,.3);transform:scale(1.05)}
+.service-title{font-family:var(--font-d);font-size:1.1rem;font-weight:700;margin-bottom:12px}
+.service-desc{color:var(--text-muted);font-size:.88rem;line-height:1.7;margin-bottom:20px}
+.service-features{display:flex;flex-direction:column;gap:8px}
+.service-feat{font-size:.82rem;color:var(--text-muted);display:flex;align-items:center;gap:10px;transition:color var(--tr)}
+.service-card:hover .service-feat{color:var(--text-dim)}
+.feat-dot{width:5px;height:5px;border-radius:50%;background:var(--gradient);flex-shrink:0}
+
+/* ===== PROJECTS ===== */
+#projects{background:var(--bg2)}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.project-card{background:var(--bg3);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;transition:all var(--tr);position:relative}
+.project-card:hover{border-color:rgba(99,102,241,.25);transform:translateY(-8px);box-shadow:0 32px 72px rgba(0,0,0,.4)}
+.project-thumb{height:220px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.project-thumb-inner{font-size:5rem;transition:transform .6s cubic-bezier(.4,0,.2,1);position:relative;z-index:1}
+.project-card:hover .project-thumb-inner{transform:scale(1.15) rotate(5deg)}
+.project-thumb-bg{position:absolute;inset:0;transition:transform .6s}
+.project-card:hover .project-thumb-bg{transform:scale(1.1)}
+.pt-restaurant{background:linear-gradient(135deg,#1a0600,#3d1500,#1a0600)}
+.pt-retail{background:linear-gradient(135deg,#000a1a,#001540,#000a1a)}
+.pt-realestate{background:linear-gradient(135deg,#001a0a,#00401a,#001a0a)}
+.pt-cafe{background:linear-gradient(135deg,#1a1000,#3d2200,#1a1000)}
+.project-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--bg3) 0%,transparent 60%);z-index:2}
+.project-thumb-label{position:absolute;top:16px;right:16px;background:rgba(0,0,0,.5);backdrop-filter:blur(12px);border:1px solid var(--glass-border);padding:5px 14px;border-radius:100px;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;z-index:3}
+.project-thumb-label span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.project-info{padding:28px}
+.project-name{font-family:var(--font-d);font-size:1.15rem;font-weight:700;margin-bottom:10px}
+.project-desc{color:var(--text-muted);font-size:.87rem;line-height:1.7;margin-bottom:18px}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.project-tag{background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.1);color:var(--text-dim);padding:4px 12px;border-radius:100px;font-size:.72rem;font-weight:500}
+.project-actions{display:flex;gap:10px}
+
+/* ===== WHY US ===== */
+.why-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.why-card{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px 24px;text-align:center;transition:all var(--tr);position:relative;overflow:hidden}
+.why-card::before{content:'';position:absolute;inset:0;background:var(--gradient);opacity:0;transition:opacity var(--tr)}
+.why-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.3);border-color:transparent}
+.why-card:hover::before{opacity:.06}
+.why-icon{width:60px;height:60px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.15);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.5rem;transition:all var(--tr)}
+.why-card:hover .why-icon{background:var(--gradient);transform:scale(1.1) rotate(5deg);box-shadow:0 8px 24px rgba(99,102,241,.3);border-color:transparent}
+.why-title{font-family:var(--font-d);font-size:.95rem;font-weight:700;margin-bottom:8px;position:relative;z-index:1}
+.why-desc{color:var(--text-muted);font-size:.82rem;line-height:1.65;position:relative;z-index:1}
+
+/* ===== TESTIMONIALS ===== */
+#testimonials{background:var(--bg2)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.testimonial-card{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:40px 32px;position:relative;transition:all var(--tr);overflow:hidden}
+.testimonial-card:hover{border-color:rgba(99,102,241,.2);transform:translateY(-4px)}
+.testimonial-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--gradient);transform:scaleX(0);transition:transform .5s}
+.testimonial-card:hover::before{transform:scaleX(1)}
+.testimonial-quote{position:absolute;top:20px;right:24px;font-family:var(--font-d);font-size:5rem;line-height:1;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:.08}
+.testimonial-stars{margin-bottom:18px;letter-spacing:3px;font-size:.85rem}
+.testimonial-stars span{background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.testimonial-text{color:var(--text-muted);font-size:.93rem;line-height:1.8;margin-bottom:28px;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:14px}
+.testimonial-avatar{width:48px;height:48px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:#000;flex-shrink:0;box-shadow:0 4px 16px rgba(99,102,241,.2)}
+.testimonial-name{font-weight:600;font-size:.9rem}
+.testimonial-role{color:var(--text-muted);font-size:.78rem}
+
+/* ===== PROCESS ===== */
+#process{background:var(--bg2)}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;position:relative}
+.process-step{text-align:center;padding:0 24px;position:relative}
+.process-connector{position:absolute;top:32px;left:calc(50% + 32px);width:calc(100% - 64px);height:1px;background:linear-gradient(90deg,rgba(99,102,241,.3),rgba(0,229,255,.3))}
+.process-step:last-child .process-connector{display:none}
+.process-num{width:64px;height:64px;background:var(--glass);backdrop-filter:blur(12px);border:2px solid rgba(99,102,241,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:1.15rem;margin:0 auto 24px;position:relative;z-index:2;transition:all .4s}
+.process-num span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.process-step:hover .process-num{background:var(--gradient);border-color:transparent;box-shadow:0 0 32px rgba(99,102,241,.4);transform:scale(1.1)}
+.process-step:hover .process-num span{-webkit-text-fill-color:#000}
+.process-step-title{font-family:var(--font-d);font-weight:700;font-size:1rem;margin-bottom:8px}
+.process-step-desc{color:var(--text-muted);font-size:.84rem;line-height:1.65}
+
+/* ===== CTA BANNER ===== */
+.cta-banner{padding:100px 0;position:relative;overflow:hidden}
+.cta-inner{background:var(--gradient);border-radius:24px;padding:80px 60px;text-align:center;position:relative;overflow:hidden}
+.cta-inner::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:40px 40px}
+.cta-inner::after{content:'';position:absolute;top:-50%;right:-20%;width:500px;height:500px;background:rgba(255,255,255,.08);border-radius:50%;filter:blur(60px)}
+.cta-inner h2{font-family:var(--font-d);font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#000;margin-bottom:14px;position:relative;letter-spacing:-.5px}
+.cta-inner p{color:rgba(0,0,0,.6);margin-bottom:36px;font-size:1.05rem;position:relative;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-inner .btn{background:#000;color:#fff;position:relative;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.cta-inner .btn:hover{box-shadow:0 12px 40px rgba(0,0,0,.3);transform:translateY(-3px)}
+
+/* ===== CONTACT ===== */
+#contact{background:var(--bg2)}
+.contact-inner{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start}
+.contact-info h3{font-family:var(--font-d);font-size:1.5rem;font-weight:700;margin-bottom:14px}
+.contact-info p{color:var(--text-muted);line-height:1.8;margin-bottom:36px}
+.contact-items{display:flex;flex-direction:column;gap:14px}
+.contact-item{display:flex;align-items:center;gap:16px;padding:18px 22px;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:14px;transition:all var(--tr)}
+.contact-item:hover{border-color:rgba(99,102,241,.2);transform:translateX(4px)}
+.contact-item-icon{width:44px;height:44px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.contact-item-text{font-size:.9rem}
+.contact-item-text small{display:block;color:var(--text-muted);font-size:.78rem;margin-bottom:2px}
+.whatsapp-btn{display:inline-flex;align-items:center;gap:12px;background:#25d366;color:#fff;padding:16px 32px;border-radius:100px;font-weight:600;text-decoration:none;font-size:.9rem;transition:all var(--tr);margin-top:20px;box-shadow:0 4px 20px rgba(37,211,102,.15)}
+.whatsapp-btn:hover{background:#1ebe5d;box-shadow:0 8px 32px rgba(37,211,102,.3);transform:translateY(-3px)}
+.contact-form{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:44px;position:relative;overflow:hidden}
+.contact-form::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--gradient)}
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:.8rem;font-weight:600;color:var(--text-dim);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase}
+.form-control{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--glass-border);color:var(--text);padding:14px 18px;border-radius:12px;font-family:var(--font-b);font-size:.9rem;transition:all var(--tr);outline:none;resize:none}
+.form-control::placeholder{color:var(--text-dim)}
+.form-control:focus{border-color:rgba(99,102,241,.4);box-shadow:0 0 0 4px rgba(99,102,241,.06);background:rgba(255,255,255,.04)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-submit{width:100%;justify-content:center;margin-top:8px;font-size:1rem;padding:18px;border-radius:12px}
+.form-success{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#22c55e;padding:18px;border-radius:12px;text-align:center;font-weight:500;display:none;margin-bottom:16px}
+
+/* ===== PRICING ===== */
+#pricing{background:var(--bg2)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pricing-card{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:44px 36px;position:relative;overflow:hidden;transition:all var(--tr);text-align:center}
+.pricing-card:hover{transform:translateY(-6px);border-color:rgba(99,102,241,.2)}
+.pricing-card.featured{border-color:rgba(99,102,241,.3)}
+.pricing-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient)}
+.pricing-badge{display:inline-flex;padding:4px 14px;border-radius:100px;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--gradient);color:#000;margin-bottom:20px}
+.pricing-name{font-family:var(--font-d);font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.pricing-desc{color:var(--text-muted);font-size:.84rem;margin-bottom:24px}
+.pricing-amount{font-family:var(--font-d);font-size:2.8rem;font-weight:800;margin-bottom:4px}
+.pricing-amount span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pricing-period{font-size:.82rem;color:var(--text-muted);margin-bottom:32px}
+.pricing-features{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;text-align:left}
+.pricing-feat{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-muted)}
+.pricing-check{width:18px;height:18px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#22c55e;flex-shrink:0}
+.pricing-card .btn{width:100%;justify-content:center}
+
+/* ===== FOOTER ===== */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 0 32px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
+.footer-brand{max-width:300px}
+.footer-brand-name{font-family:var(--font-d);font-size:1.4rem;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.footer-brand-name em{font-style:normal;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.footer-brand p{color:var(--text-muted);font-size:.88rem;line-height:1.8}
+.footer-socials{display:flex;gap:10px;margin-top:24px}
+.social-btn{width:42px;height:42px;background:var(--glass);border:1px solid var(--glass-border);border-radius:12px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.9rem;transition:all var(--tr)}
+.social-btn:hover{border-color:rgba(99,102,241,.3);transform:translateY(-3px);background:rgba(99,102,241,.08)}
+.footer-links h4{font-family:var(--font-d);font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:20px}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-links a{color:var(--text-muted);text-decoration:none;font-size:.87rem;transition:color var(--tr);display:flex;align-items:center;gap:8px}
+.footer-links a::before{content:'';width:0;height:1px;background:var(--accent);transition:width var(--tr)}
+.footer-links a:hover{color:var(--text)}
+.footer-links a:hover::before{width:12px}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-bottom p{color:var(--text-dim);font-size:.82rem}
+.footer-bottom span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:600}
+
+/* ===== BACK TO TOP ===== */
+.back-top{position:fixed;bottom:32px;right:32px;width:48px;height:48px;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:998;opacity:0;transform:translateY(20px);transition:all var(--tr);text-decoration:none;color:var(--text)}
+.back-top.visible{opacity:1;transform:translateY(0)}
+.back-top:hover{background:var(--gradient);border-color:transparent;color:#000;box-shadow:0 8px 24px rgba(99,102,241,.3)}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1100px){
+  .services-grid,.pricing-grid{grid-template-columns:repeat(2,1fr)}
+  .why-grid{grid-template-columns:repeat(3,1fr)}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .contact-inner{grid-template-columns:1fr;gap:48px}
+  .process-steps{grid-template-columns:repeat(2,1fr);gap:32px}
+  .process-connector{display:none!important}
+  .projects-grid,.testimonials-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hamburger{display:block}
+  .hero-stats{flex-direction:column}
+  .hero-stat{border-right:none;border-bottom:1px solid var(--border);padding:20px}
+  .hero-stat:last-child{border-bottom:none}
+  .footer-top{grid-template-columns:1fr;gap:32px}
+}
+@media(max-width:600px){
+  .section{padding:80px 0}
+  .services-grid,.pricing-grid,.why-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .hero-title{letter-spacing:-1.5px}
+  .hero-buttons{flex-direction:column}
+  .hero-buttons .btn{width:100%;justify-content:center}
+  .back-top{bottom:20px;right:20px;width:40px;height:40px}
+  .cursor-dot,.cursor-ring{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">Nexa<span>Web</span></div>
+  <div class="preloader-bar"><div class="preloader-fill"></div></div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- BACK TO TOP -->
+<a href="#hero" class="back-top" id="backTop">↑</a>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#pricing" onclick="closeMobile()">Pricing</a>
+  <a href="#testimonials" onclick="closeMobile()">Reviews</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    Nexa<em>Web</em>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started →</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="hero-badge-status">
+          <span class="hero-badge-dot"></span>
+          Available Now
+        </div>
+        Taking on new projects for 2025
+      </div>
+      <h1 class="hero-title">
+        <span class="line">We Build Websites</span>
+        <span class="line accent-line">That Grow Business</span>
+      </h1>
+      <p class="hero-sub">Helping restaurants, retail shops, and brokers establish a powerful online presence — fast, clean, and conversion-focused.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">
+          🚀 Start Your Project
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#projects" class="btn btn-outline">
+          View Our Work →
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="stat-number"><span class="counter" data-target="50">0</span><span>+</span></div>
+          <div class="stat-text">Projects Delivered</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-number"><span class="counter" data-target="100">0</span><span>%</span></div>
+          <div class="stat-text">Client Satisfaction</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-number"><span>3-5</span></div>
+          <div class="stat-text">Days Avg. Delivery</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-number"><span>24/7</span></div>
+          <div class="stat-text">Ongoing Support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="dot"></span>Web Development</div>
+    <div class="marquee-item"><span class="dot"></span>Restaurant Websites</div>
+    <div class="marquee-item"><span class="dot"></span>E-Commerce</div>
+    <div class="marquee-item"><span class="dot"></span>Real Estate Portals</div>
+    <div class="marquee-item"><span class="dot"></span>SEO Optimization</div>
+    <div class="marquee-item"><span class="dot"></span>Mobile Responsive</div>
+    <div class="marquee-item"><span class="dot"></span>UI/UX Design</div>
+    <div class="marquee-item"><span class="dot"></span>Fast Delivery</div>
+    <div class="marquee-item"><span class="dot"></span>Web Development</div>
+    <div class="marquee-item"><span class="dot"></span>Restaurant Websites</div>
+    <div class="marquee-item"><span class="dot"></span>E-Commerce</div>
+    <div class="marquee-item"><span class="dot"></span>Real Estate Portals</div>
+    <div class="marquee-item"><span class="dot"></span>SEO Optimization</div>
+    <div class="marquee-item"><span class="dot"></span>Mobile Responsive</div>
+    <div class="marquee-item"><span class="dot"></span>UI/UX Design</div>
+    <div class="marquee-item"><span class="dot"></span>Fast Delivery</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <div class="about-avatar">👨‍💻</div>
+          <div class="about-name">NexaWeb Solutions</div>
+          <div class="about-role">Full Stack Web Development Agency</div>
+          <div class="about-bio">We're passionate about building fast, responsive, and beautiful websites for local businesses — helping them compete and thrive in the digital landscape.</div>
+          <div class="skills-wrap">
+            <span class="skill-pill"><span>HTML5</span></span>
+            <span class="skill-pill"><span>CSS3</span></span>
+            <span class="skill-pill"><span>JavaScript</span></span>
+            <span class="skill-pill"><span>React</span></span>
+            <span class="skill-pill"><span>Java</span></span>
+            <span class="skill-pill"><span>Spring Boot</span></span>
+            <span class="skill-pill"><span>MySQL</span></span>
+            <span class="skill-pill"><span>Figma</span></span>
+          </div>
+        </div>
+        <div class="about-floating">
+          <big>50+</big>Happy Clients
+        </div>
+      </div>
+      <div class="about-text reveal reveal-d2">
+        <div class="section-header">
+          <div class="section-label">
+            <div class="section-label-dot">✦</div>
+            <span>Who We Are</span>
+          </div>
+          <h2 class="section-title">Digital Solutions for <em>Local Businesses</em></h2>
+          <p class="section-sub">We combine technical expertise with deep understanding of what makes customers click, call, and convert.</p>
+        </div>
+        <p>NexaWeb Solutions is a modern web development agency focused on helping small and local businesses establish a powerful digital presence. We don't just build websites — we build growth engines.</p>
+        <p>Whether you run a restaurant, retail shop, or real estate agency — we craft websites that work hard for your business 24/7, turning visitors into paying customers.</p>
+        <p>Our approach is simple: understand your business deeply, design something stunning, build it with clean code, and deliver it fast — so you can start growing online immediately.</p>
+        <a href="#contact" class="btn btn-primary" style="margin-top:12px">Start Your Project →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto 64px">
+      <div class="section-label" style="justify-content:center">
+        <div class="section-label-dot">⚡</div>
+        <span>Our Services</span>
+      </div>
+      <h2 class="section-title">Tailored for <em>Your Industry</em></h2>
+      <p class="section-sub" style="margin:0 auto">Every service is designed specifically for local businesses — no generic templates, no cookie-cutter solutions.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal reveal-d1">
+        <div class="service-icon-wrap">🍽️</div>
+        <div class="service-title">Restaurant Websites</div>
+        <div class="service-desc">Mouth-watering websites that showcase your food and brand — turning visitors into reservations.</div>
+        <div class="service-features">
+          <div class="service-feat"><span class="feat-dot"></span>Beautiful menu displays</div>
+          <div class="service-feat"><span class="feat-dot"></span>Table booking system</div>
+          <div class="service-feat"><span class="feat-dot"></span>Photo gallery & reviews</div>
+          <div class="service-feat"><span class="feat-dot"></span>Online ordering ready</div>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-d2">
+        <div class="service-icon-wrap">🛍️</div>
+        <div class="service-title">Retail & E-Commerce</div>
+        <div class="service-desc">Showcase products beautifully and make it seamless for customers to enquire or purchase.</div>
+        <div class="service-features">
+          <div class="service-feat"><span class="feat-dot"></span>Product showcase & categories</div>
+          <div class="service-feat"><span class="feat-dot"></span>WhatsApp integration</div>
+          <div class="service-feat"><span class="feat-dot"></span>Promotions section</div>
+          <div class="service-feat"><span class="feat-dot"></span>Enquiry & order forms</div>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-d3">
+        <div class="service-icon-wrap">🏠</div>
+        <div class="service-title">Real Estate Portals</div>
+        <div class="service-desc">Professional property portals that help brokers close more deals with smart features.</div>
+        <div class="service-features">
+          <div class="service-feat"><span class="feat-dot"></span>Property listings & filters</div>
+          <div class="service-feat"><span class="feat-dot"></span>Map integrations</div>
+          <div class="service-feat"><span class="feat-dot"></span>Lead-capture forms</div>
+          <div class="service-feat"><span class="feat-dot"></span>Virtual tour links</div>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-d1">
+        <div class="service-icon-wrap">📱</div>
+        <div class="service-title">Responsive Design</div>
+        <div class="service-desc">Every site works flawlessly on phones, tablets, and desktops with zero compromises.</div>
+        <div class="service-features">
+          <div class="service-feat"><span class="feat-dot"></span>Mobile-first approach</div>
+          <div class="service-feat"><span class="feat-dot"></span>Cross-browser testing</div>
+          <div class="service-feat"><span class="feat-dot"></span>Touch-optimized UI</div>
+          <div class="service-feat"><span class="feat-dot"></span>Lightning fast loads</div>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-d2">
+        <div class="service-icon-wrap">🔍</div>
+        <div class="service-title">SEO Optimization</div>
+        <div class="service-desc">Built with search engines in mind so your local customers find you on Google easily.</div>
+        <div class="service-features">
+          <div class="service-feat"><span class="feat-dot"></span>On-page SEO setup</div>
+          <div class="service-feat"><span class="feat-dot"></span>Meta tags & schema</div>
+          <div class="service-feat"><span class="feat-dot"></span>Speed optimization</div>
+          <div class="service-feat"><span class="feat-dot"></span>Google Business ready</div>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-d3">
+        <div class="service-icon-wrap">⚙️</div>
+        <div class="service-title">Maintenance & Support</div>
+        <div class="service-desc">Keep your site running perfectly with ongoing support and timely updates.</div>
+        <div class="service-features">
+          <div class="service-feat"><span class="feat-dot"></span>Content updates</div>
+          <div class="service-feat"><span class="feat-dot"></span>Bug fixes & patches</div>
+          <div class="service-feat"><span class="feat-dot"></span>Performance monitoring</div>
+          <div class="service-feat"><span class="feat-dot"></span>Priority support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto 64px">
+      <div class="section-label" style="justify-content:center">
+        <div class="section-label-dot">🎯</div>
+        <span>Our Portfolio</span>
+      </div>
+      <h2 class="section-title">Projects We're <em>Proud Of</em></h2>
+      <p class="section-sub" style="margin:0 auto">Real websites for real businesses — clean design, powerful features, measurable results.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal reveal-d1">
+        <div class="project-thumb">
+          <div class="project-thumb-bg pt-restaurant"></div>
+          <div class="project-thumb-inner">🍝</div>
+          <span class="project-thumb-label"><span>Restaurant</span></span>
+        </div>
+        <div class="project-info">
+          <div class="project-name">La Bella Cucina</div>
+          <div class="project-desc">Fine-dining Italian restaurant with interactive menu, gallery, and reservation system — bookings up 40%.</div>
+          <div class="project-tags">
+            <span class="project-tag">Menu UI</span>
+            <span class="project-tag">Booking</span>
+            <span class="project-tag">Gallery</span>
+            <span class="project-tag">Reviews</span>
+          </div>
+          <div class="project-actions">
+            <a href="#contact" class="btn btn-primary btn-sm">View Demo</a>
+            <a href="#contact" class="btn btn-outline btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-d2">
+        <div class="project-thumb">
+          <div class="project-thumb-bg pt-retail"></div>
+          <div class="project-thumb-inner">🛒</div>
+          <span class="project-thumb-label"><span>Retail</span></span>
+        </div>
+        <div class="project-info">
+          <div class="project-name">StyleHub Store</div>
+          <div class="project-desc">Modern clothing store with WhatsApp ordering, flash-deals, and product showcase — walk-ins doubled.</div>
+          <div class="project-tags">
+            <span class="project-tag">Products</span>
+            <span class="project-tag">WhatsApp</span>
+            <span class="project-tag">Deals</span>
+            <span class="project-tag">Categories</span>
+          </div>
+          <div class="project-actions">
+            <a href="#contact" class="btn btn-primary btn-sm">View Demo</a>
+            <a href="#contact" class="btn btn-outline btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-d3">
+        <div class="project-thumb">
+          <div class="project-thumb-bg pt-realestate"></div>
+          <div class="project-thumb-inner">🏡</div>
+          <span class="project-thumb-label"><span>Real Estate</span></span>
+        </div>
+        <div class="project-info">
+          <div class="project-name">Prime Properties</div>
+          <div class="project-desc">Full-featured property portal with search filters, map view, and lead-capture — enquiries tripled.</div>
+          <div class="project-tags">
+            <span class="project-tag">Listings</span>
+            <span class="project-tag">Filters</span>
+            <span class="project-tag">Enquiry</span>
+            <span class="project-tag">Maps</span>
+          </div>
+          <div class="project-actions">
+            <a href="#contact" class="btn btn-primary btn-sm">View Demo</a>
+            <a href="#contact" class="btn btn-outline btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="section">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto 64px">
+      <div class="section-label" style="justify-content:center">
+        <div class="section-label-dot">💎</div>
+        <span>Pricing Plans</span>
+      </div>
+      <h2 class="section-title">Simple, Transparent <em>Pricing</em></h2>
+      <p class="section-sub" style="margin:0 auto">No hidden costs, no surprises. Choose the plan that fits your business best.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal reveal-d1">
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-desc">Perfect for small businesses getting started online.</div>
+        <div class="pricing-amount"><span>₹4,999</span></div>
+        <div class="pricing-period">One-time payment</div>
+        <div class="pricing-features">
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Single page website</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Mobile responsive</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Contact form</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>WhatsApp integration</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>3-day delivery</div>
+        </div>
+        <a href="#contact" class="btn btn-outline">Choose Starter</a>
+      </div>
+      <div class="pricing-card featured reveal reveal-d2">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-name">Professional</div>
+        <div class="pricing-desc">Ideal for businesses ready to grow seriously online.</div>
+        <div class="pricing-amount"><span>₹9,999</span></div>
+        <div class="pricing-period">One-time payment</div>
+        <div class="pricing-features">
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Multi-page website (5+)</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Custom design</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>SEO optimization</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Gallery & reviews</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Booking/enquiry forms</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>5-day delivery</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>30 days free support</div>
+        </div>
+        <a href="#contact" class="btn btn-primary">Choose Professional</a>
+      </div>
+      <div class="pricing-card reveal reveal-d3">
+        <div class="pricing-name">Premium</div>
+        <div class="pricing-desc">Full-featured solution for ambitious businesses.</div>
+        <div class="pricing-amount"><span>₹19,999</span></div>
+        <div class="pricing-period">One-time payment</div>
+        <div class="pricing-features">
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Advanced multi-page site</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Admin dashboard</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>E-commerce / listings</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Search & filter system</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>Analytics integration</div>
+          <div class="pricing-feat"><span class="pricing-check">✓</span>90 days free support</div>
+        </div>
+        <a href="#contact" class="btn btn-outline">Choose Premium</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why" class="section">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto 64px">
+      <div class="section-label" style="justify-content:center">
+        <div class="section-label-dot">🏆</div>
+        <span>Why NexaWeb</span>
+      </div>
+      <h2 class="section-title">The Smart Choice for <em>Local Business</em></h2>
+      <p class="section-sub" style="margin:0 auto">We're not just developers — we're your digital growth partners who genuinely care about your results.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-d1">
+        <div class="why-icon">💰</div>
+        <div class="why-title">Affordable</div>
+        <div class="why-desc">Professional quality at prices built for small businesses.</div>
+      </div>
+      <div class="why-card reveal reveal-d2">
+        <div class="why-icon">⚡</div>
+        <div class="why-title">Fast Delivery</div>
+        <div class="why-desc">Your website ready in 3–5 days. No delays.</div>
+      </div>
+      <div class="why-card reveal reveal-d3">
+        <div class="why-icon">✨</div>
+        <div class="why-title">Modern Design</div>
+        <div class="why-desc">Clean aesthetics that build trust and credibility.</div>
+      </div>
+      <div class="why-card reveal reveal-d4">
+        <div class="why-icon">🔍</div>
+        <div class="why-title">SEO-Ready</div>
+        <div class="why-desc">Built so customers find you on Google easily.</div>
+      </div>
+      <div class="why-card reveal reveal-d5">
+        <div class="why-icon">💬</div>
+        <div class="why-title">Always Available</div>
+        <div class="why-desc">Friendly, responsive communication always.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="section">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto 64px">
+      <div class="section-label" style="justify-content:center">
+        <div class="section-label-dot">❤️</div>
+        <span>Client Love</span>
+      </div>
+      <h2 class="section-title">What Business Owners <em>Say</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal reveal-d1">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-stars"><span>★★★★★</span></div>
+        <div class="testimonial-text">NexaWeb built my restaurant website and the results were incredible. More customers found us online, and our bookings went up by 40%. Absolutely professional work!</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">R</div>
+          <div>
+            <div class="testimonial-name">Ravi Sharma</div>
+            <div class="testimonial-role">Owner, La Bella Cucina</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-d2">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-stars"><span>★★★★★</span></div>
+        <div class="testimonial-text">Very professional and incredibly fast. My retail shop now has a stunning website with WhatsApp ordering that customers absolutely love. Done in just 4 days!</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">P</div>
+          <div>
+            <div class="testimonial-name">Priya Menon</div>
+            <div class="testimonial-role">Owner, StyleHub Store</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-d3">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-stars"><span>★★★★★</span></div>
+        <div class="testimonial-text">My real estate business needed a proper online presence and NexaWeb delivered beyond expectations. Property listings look amazing and I'm getting enquiries daily now.</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">A</div>
+          <div>
+            <div class="testimonial-name">Arun Pillai</div>
+            <div class="testimonial-role">Broker, Prime Properties</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="section">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto">
+      <div class="section-label" style="justify-content:center">
+        <div class="section-label-dot">🔄</div>
+        <span>Our Process</span>
+      </div>
+      <h2 class="section-title">From Idea to <em>Live Website</em></h2>
+      <p class="section-sub" style="margin:0 auto">A simple, transparent process — you're involved every step of the way.</p>
+    </div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="process-num"><span>01</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step-title">Discovery</div>
+        <div class="process-step-desc">We learn your business, goals, audience, and vision for the website.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num"><span>02</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step-title">Design</div>
+        <div class="process-step-desc">We craft a custom design that reflects your brand perfectly.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num"><span>03</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step-title">Develop</div>
+        <div class="process-step-desc">We build it with clean, fast, responsive, SEO-ready code.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num"><span>04</span></div>
+        <div class="process-step-title">Deliver</div>
+        <div class="process-step-desc">Your site goes live with full support and guidance!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <h2>Ready to Go Digital?</h2>
+      <p>Book a free consultation — no commitment, no pressure. Just a friendly chat about growing your business.</p>
+      <a href="#contact" class="btn">Book Free Consultation →</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">
+        <div class="section-label-dot">📬</div>
+        <span>Get In Touch</span>
+      </div>
+      <h2 class="section-title">Let's Build Something <em>Amazing</em></h2>
+      <p class="section-sub">Fill in the form or reach out directly. We reply within hours.</p>
+    </div>
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h3>Ready to Grow Online?</h3>
+        <p>Share your project details and we'll get back with a free consultation and quote within a few hours.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <div class="contact-item-text">
+              <small>Email Us</small>
+              hello@nexaweb.com
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">⏱️</div>
+            <div class="contact-item-text">
+              <small>Response Time</small>
+              Within 2–4 hours
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">🚀</div>
+            <div class="contact-item-text">
+              <small>Delivery</small>
+              3–5 days average
+            </div>
+          </div>
+        </div>
+        <a href="https://wa.me/919999999999?text=Hi%2C%20I%20want%20a%20website%20for%20my%20business!" class="whatsapp-btn" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="contact-form reveal reveal-d2">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="fname" placeholder="John Doe" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Business Type</label>
+            <input type="text" class="form-control" id="fbiz" placeholder="e.g. Restaurant" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="femail" placeholder="you@email.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone / WhatsApp</label>
+          <input type="text" class="form-control" id="fphone" placeholder="+91 00000 00000" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Project Details</label>
+          <textarea class="form-control" id="fmsg" rows="4" placeholder="Tell us about your project, features you need, timeline..."></textarea>
+        </div>
+        <div class="form-success" id="formSuccess">✅ Message sent! We'll get back to you within a few hours.</div>
+        <button class="btn btn-primary form-submit" onclick="submitForm()">
+          Send Message
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Nexa<em>Web</em> Solutions</div>
+        <p>We build websites that help local businesses grow their online presence and attract more customers. Your digital growth partner.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" title="Instagram">📷</a>
+          <a href="#" class="social-btn" title="LinkedIn">💼</a>
+          <a href="#" class="social-btn" title="Twitter">🐦</a>
+          <a href="#" class="social-btn" title="GitHub">💻</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Restaurant Sites</a></li>
+          <li><a href="#services">Retail & E-Commerce</a></li>
+          <li><a href="#services">Real Estate Portals</a></li>
+          <li><a href="#services">Maintenance</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#projects">Portfolio</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@nexaweb.com">hello@nexaweb.com</a></li>
+          <li><a href="https://wa.me/919999999999">WhatsApp Us</a></li>
+          <li><a href="#contact">Book Consultation</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 <span>NexaWeb Solutions</span>. All rights reserved.</p>
+      <p>Crafted with ❤️ for local businesses</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// PRELOADER
+window.addEventListener('load',()=>{
+  setTimeout(()=>{document.getElementById('preloader').classList.add('hidden')},2200);
+});
+
+// CUSTOM CURSOR
+const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx-4}px,${my-4}px)`});
+function animateCursor(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.transform=`translate(${rx-20}px,${ry-20}px)`;requestAnimationFrame(animateCursor)}
+animateCursor();
+document.querySelectorAll('a,button,.service-card,.project-card,.why-card,.testimonial-card,.pricing-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>ring.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));
+});
+
+// SCROLL PROGRESS
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  const p=(window.scrollY/h)*100;
+  document.getElementById('scrollProgress').style.width=p+'%';
+});
+
+// NAVBAR
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',scrollY>60)});
+
+// BACK TO TOP
+const backTop=document.getElementById('backTop');
+window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',scrollY>500)});
+
+// MOBILE NAV
+document.getElementById('hamburger').addEventListener('click',()=>{document.getElementById('mobileNav').classList.add('open');document.body.style.overflow='hidden'});
+document.getElementById('mobileClose').addEventListener('click',closeMobile);
+function closeMobile(){document.getElementById('mobileNav').classList.remove('open');document.body.style.overflow=''}
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// COUNTER ANIMATION
+const counterObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target;const target=parseInt(el.dataset.target);if(!target)return;let current=0;const increment=target/60;const timer=setInterval(()=>{current+=increment;if(current>=target){el.textContent=target;clearInterval(timer)}else{el.textContent=Math.floor(current)}},25);counterObs.unobserve(el)}})},{threshold:.5});
+document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
+
+// CARD GLOW
+document.querySelectorAll('.service-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+  });
+});
+
+// PARTICLES
+const pc=document.getElementById('particles');
+for(let i=0;i<30;i++){
+  const p=document.createElement('div');
+  p.classList.add('particle');
+  p.style.left=Math.random()*100+'%';
+  p.style.animationDuration=(8+Math.random()*12)+'s';
+  p.style.animationDelay=Math.random()*10+'s';
+  p.style.width=p.style.height=(1+Math.random()*2)+'px';
+  p.style.opacity=.2+Math.random()*.3;
+  pc.appendChild(p);
+}
+
+// FORM
+function submitForm(){
+  const n=document.getElementById('fname').value.trim();
+  const e=document.getElementById('femail').value.trim();
+  const m=document.getElementById('fmsg').value.trim();
+  if(!n||!e||!m){alert('Please fill in your name, email, and project details.');return}
+  const btn=document.querySelector('.form-submit');
+  btn.textContent='Sending...';btn.disabled=true;
+  setTimeout(()=>{
+    document.getElementById('formSuccess').style.display='block';
+    ['fname','fbiz','femail','fphone','fmsg'].forEach(id=>document.getElementById(id).value='');
+    btn.innerHTML='Send Message <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+    btn.disabled=false;
+    setTimeout(()=>document.getElementById('formSuccess').style.display='none',5000);
+  },1200);
+}
+
+// SMOOTH SCROLL FOR SAFARI
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>
